@@ -490,5 +490,5 @@ def run_dashboard(auto_open=True, port=8050):
     app.run(debug=False, port=port)
 
 
-if __name__ == "__main__":
-    run_dashboard(auto_open=False)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8050, debug=False)
