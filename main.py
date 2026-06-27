@@ -1,30 +1,32 @@
 """
 main.py
-Entry point for the Expense Tracker With Dashboard project.
-
-    python main.py
-
-lets you choose between the CLI (add/view/manage expenses, set budgets)
-and the auto-launching web dashboard (bar chart, pie chart, monthly trend,
-filters, budget alerts).
+Entry point for the Expense Tracker project.
 """
 
+import os
 import db
 
 
 def main():
     db.init_db()
+
+    # If running on Render (no terminal input allowed)
+    if os.environ.get("RENDER"):
+        from dashboard import run_dashboard
+        run_dashboard(auto_open=False)
+        return
+
+    # Local machine (CLI allowed)
     print("=" * 45)
     print(" EXPENSE TRACKER WITH DASHBOARD")
     print("=" * 45)
     print("1. Start CLI (terminal-based add/view/manage)")
-    print("2. Launch Web Dashboard (recommended -- add/view/delete/budgets all in browser)")
+    print("2. Launch Web Dashboard")
     choice = input("Choose an option (1-2) [default: 2]: ").strip() or "2"
 
     if choice == "2":
-        import dashboard
-        print("\nStarting dashboard... it will open automatically in your browser.")
-        dashboard.run_dashboard(auto_open=True)
+        from dashboard import run_dashboard
+        run_dashboard(auto_open=True)
     else:
         import cli
         cli.main()
