@@ -487,7 +487,7 @@ def run_dashboard(auto_open=True, port=8050):
     app = build_app()
     if auto_open:
         threading.Timer(1.2, lambda: webbrowser.open(f"http://127.0.0.1:{port}")).start()
-    app.run(debug=False, port=port)
+    app.run(debug=False, host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
